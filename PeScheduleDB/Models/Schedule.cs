@@ -1,10 +1,19 @@
-﻿namespace PeScheduleDB.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PeScheduleDB.Models
 {
     public class Schedule
     {
-        public int ScheduleID { get; set; }
-        public List<Course>Courses { get; set; }
-        public List<Location> Locations { get; set; }
+        public int ScheduleId { get; set; }
+
+        [ForeignKey("Course")]
+        public int CourseId { get; set; }
+        public Course Courses { get; set; }
+
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }
+        public Location Locations { get; set; }
         public DateTime Date { get; set; }
     }
 }
