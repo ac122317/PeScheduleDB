@@ -19,4 +19,6 @@ public DbSet<PeScheduleDB.Models.Course> Course { get; set; } = default!;
 public DbSet<PeScheduleDB.Models.Teacher> Teacher { get; set; } = default!;
 
 public DbSet<PeScheduleDB.Models.Schedule> Schedule { get; set; } = default!;
+
+public DbSet<PeScheduleDB.Models.Location> Location { get; set; } = default!;
     }

@@ -12,19 +12,6 @@ namespace PeScheduleDB.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Course",
-                columns: table => new
-                {
-                    CourseId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Course", x => x.CourseId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
@@ -48,7 +35,8 @@ namespace PeScheduleDB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeacherCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,22 +44,23 @@ namespace PeScheduleDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Course",
                 columns: table => new
                 {
-                    LocationId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.LocationId);
+                    table.PrimaryKey("PK_Course", x => x.CourseId);
                     table.ForeignKey(
-                        name: "FK_Location_Course_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Course",
-                        principalColumn: "CourseId");
+                        name: "FK_Course_Teacher_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teacher",
+                        principalColumn: "TeacherId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,27 +88,22 @@ namespace PeScheduleDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseTeacher",
+                name: "Location",
                 columns: table => new
                 {
-                    CoursesCourseId = table.Column<int>(type: "int", nullable: false),
-                    TeachersTeacherId = table.Column<int>(type: "int", nullable: false)
+                    LocationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseTeacher", x => new { x.CoursesCourseId, x.TeachersTeacherId });
+                    table.PrimaryKey("PK_Location", x => x.LocationId);
                     table.ForeignKey(
-                        name: "FK_CourseTeacher_Course_CoursesCourseId",
-                        column: x => x.CoursesCourseId,
+                        name: "FK_Location_Course_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Course",
-                        principalColumn: "CourseId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseTeacher_Teacher_TeachersTeacherId",
-                        column: x => x.TeachersTeacherId,
-                        principalTable: "Teacher",
-                        principalColumn: "TeacherId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CourseId");
                 });
 
             migrationBuilder.CreateTable(
@@ -150,14 +134,14 @@ namespace PeScheduleDB.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Course_TeacherId",
+                table: "Course",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseStudent_StudentsStudentId",
                 table: "CourseStudent",
                 column: "StudentsStudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CourseTeacher_TeachersTeacherId",
-                table: "CourseTeacher",
-                column: "TeachersTeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Location_CourseId",
@@ -182,22 +166,19 @@ namespace PeScheduleDB.Migrations
                 name: "CourseStudent");
 
             migrationBuilder.DropTable(
-                name: "CourseTeacher");
-
-            migrationBuilder.DropTable(
                 name: "Schedule");
 
             migrationBuilder.DropTable(
                 name: "Student");
 
             migrationBuilder.DropTable(
-                name: "Teacher");
-
-            migrationBuilder.DropTable(
                 name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Course");
+
+            migrationBuilder.DropTable(
+                name: "Teacher");
         }
     }
 }

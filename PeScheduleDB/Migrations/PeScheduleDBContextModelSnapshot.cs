@@ -36,21 +36,6 @@ namespace PeScheduleDB.Migrations
                     b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.Property<int>("CoursesCourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeachersTeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesCourseId", "TeachersTeacherId");
-
-                    b.HasIndex("TeachersTeacherId");
-
-                    b.ToTable("CourseTeacher");
-                });
-
             modelBuilder.Entity("PeScheduleDB.Models.Course", b =>
                 {
                     b.Property<int>("CourseId")
@@ -63,7 +48,12 @@ namespace PeScheduleDB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.HasKey("CourseId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Course");
                 });
@@ -165,6 +155,10 @@ namespace PeScheduleDB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TeacherCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("TeacherId");
 
                     b.ToTable("Teacher");
@@ -185,19 +179,15 @@ namespace PeScheduleDB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseTeacher", b =>
+            modelBuilder.Entity("PeScheduleDB.Models.Course", b =>
                 {
-                    b.HasOne("PeScheduleDB.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesCourseId")
+                    b.HasOne("PeScheduleDB.Models.Teacher", "Teachers")
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PeScheduleDB.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersTeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("PeScheduleDB.Models.Location", b =>
@@ -229,6 +219,11 @@ namespace PeScheduleDB.Migrations
             modelBuilder.Entity("PeScheduleDB.Models.Course", b =>
                 {
                     b.Navigation("Locations");
+                });
+
+            modelBuilder.Entity("PeScheduleDB.Models.Teacher", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

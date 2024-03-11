@@ -49,7 +49,7 @@ namespace PeScheduleDB.Controllers
         public IActionResult Create()
         {
             ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId");
-            ViewData["LocationId"] = new SelectList(_context.Set<Location>(), "LocationId", "LocationId");
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId");
             return View();
         }
 
@@ -60,14 +60,14 @@ namespace PeScheduleDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ScheduleId,CourseId,LocationId,Date")] Schedule schedule)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(schedule);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId", schedule.CourseId);
-            ViewData["LocationId"] = new SelectList(_context.Set<Location>(), "LocationId", "LocationId", schedule.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId", schedule.LocationId);
             return View(schedule);
         }
 
@@ -85,7 +85,7 @@ namespace PeScheduleDB.Controllers
                 return NotFound();
             }
             ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId", schedule.CourseId);
-            ViewData["LocationId"] = new SelectList(_context.Set<Location>(), "LocationId", "LocationId", schedule.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId", schedule.LocationId);
             return View(schedule);
         }
 
@@ -101,7 +101,7 @@ namespace PeScheduleDB.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -122,7 +122,7 @@ namespace PeScheduleDB.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId", schedule.CourseId);
-            ViewData["LocationId"] = new SelectList(_context.Set<Location>(), "LocationId", "LocationId", schedule.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId", schedule.LocationId);
             return View(schedule);
         }
 
