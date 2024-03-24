@@ -55,7 +55,7 @@ namespace PeScheduleDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LocationId,LocationName")] Location location)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(location);
                 await _context.SaveChangesAsync();
@@ -92,7 +92,7 @@ namespace PeScheduleDB.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
