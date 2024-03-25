@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
 
-    public class PeScheduleDBContext : DbContext
+    public class PeScheduleDBContext : IdentityDbContext
     {
         public PeScheduleDBContext (DbContextOptions<PeScheduleDBContext> options)
             : base(options)
