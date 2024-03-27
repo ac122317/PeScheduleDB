@@ -48,8 +48,8 @@ namespace PeScheduleDB.Controllers
         // GET: Schedules/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId");
-            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId");
+            ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseName");
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationName");
             return View();
         }
 
@@ -84,8 +84,8 @@ namespace PeScheduleDB.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseId", schedule.CourseId);
-            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationId", schedule.LocationId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseName", schedule.CourseId);
+            ViewData["LocationId"] = new SelectList(_context.Location, "LocationId", "LocationName", schedule.LocationId);
             return View(schedule);
         }
 

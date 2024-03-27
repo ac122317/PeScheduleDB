@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 using PeScheduleDB.Models;
 
 namespace PeScheduleDB.Controllers
@@ -12,7 +13,7 @@ namespace PeScheduleDB.Controllers
     public class CoursesController : Controller
     {
         private readonly PeScheduleDBContext _context;
-
+        
         public CoursesController(PeScheduleDBContext context)
         {
             _context = context;
@@ -47,7 +48,7 @@ namespace PeScheduleDB.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
-            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherId");
+            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherCode");
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace PeScheduleDB.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherId", course.TeacherId);
+            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherId", course.Teachers.TeacherCode);
             return View(course);
         }
 
@@ -77,11 +78,13 @@ namespace PeScheduleDB.Controllers
             }
 
             var course = await _context.Course.FindAsync(id);
+            
             if (course == null)
             {
                 return NotFound();
             }
-            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherId", course.TeacherId);
+            
+            ViewData["TeacherId"] = new SelectList(_context.Teacher, "TeacherId", "TeacherCode", course.TeacherId);
             return View(course);
         }
 
