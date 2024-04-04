@@ -152,5 +152,11 @@ namespace PeScheduleDB.Controllers
         {
             return _context.Teacher.Any(e => e.TeacherId == id);
         }
+
+        public async Task<IActionResult> SearchTeacher(string TeacherCode)
+        {
+            var SortByTeacherCode = _context.Teacher.Where(j => j.TeacherCode == TeacherCode);
+            return View("Index", await SortByTeacherCode.ToListAsync());
+        }
     }
 }

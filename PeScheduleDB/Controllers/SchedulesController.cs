@@ -165,5 +165,20 @@ namespace PeScheduleDB.Controllers
         {
             return _context.Schedule.Any(e => e.ScheduleId == id);
         }
+        public async Task<IActionResult> SortSchedule(DateTime? Date)
+        {
+            if (Date == null)
+            {
+                
+                return RedirectToAction(nameof(Index));
+            }
+
+            var filterDate = Date.Value.Date;
+
+            var ScheduleDate = _context.Schedule.Where(j => j.Date.Date == filterDate).Include (s => s.Courses).Include (s => s.Locations);
+
+            return View("Index", await ScheduleDate.ToListAsync());
+        }
+
     }
 }

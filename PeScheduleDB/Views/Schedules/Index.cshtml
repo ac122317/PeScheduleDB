@@ -9,6 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div>
+    <form asp-action="SortSchedule" asp-controller="Schedules" method="get">
+        <input type="date" name="Date" value="Date" />
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -19,7 +26,7 @@
                 Location
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Date/Time
             </th>
             <th></th>
         </tr>
