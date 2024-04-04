@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {
@@ -151,6 +152,18 @@ namespace PeScheduleDB.Controllers
         private bool LocationExists(int id)
         {
             return _context.Location.Any(e => e.LocationId == id);
+        }
+
+        public async Task<IActionResult> SearchLocation(string LocationName)
+        {
+            if (LocationName == null)
+            {
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            var SortByName = _context.Location.Where(j => j.LocationName == LocationName);
+            return View("Index", await SortByName.ToListAsync());
         }
     }
 }

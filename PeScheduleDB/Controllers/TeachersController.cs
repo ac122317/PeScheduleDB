@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {
@@ -155,6 +156,12 @@ namespace PeScheduleDB.Controllers
 
         public async Task<IActionResult> SearchTeacher(string TeacherCode)
         {
+            if (TeacherCode == null)
+            {
+
+                return RedirectToAction(nameof(Index));
+            }
+
             var SortByTeacherCode = _context.Teacher.Where(j => j.TeacherCode == TeacherCode);
             return View("Index", await SortByTeacherCode.ToListAsync());
         }

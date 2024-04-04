@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
 using PeScheduleDB.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {
@@ -161,6 +162,18 @@ namespace PeScheduleDB.Controllers
         private bool CourseExists(int id)
         {
             return _context.Course.Any(e => e.CourseId == id);
+        }
+
+        public async Task<IActionResult> SearchCourse(string CourseName)
+        {
+            if (CourseName == null)
+            {
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            var SortByName = _context.Course.Where(j => j.CourseName == CourseName).Include(c => c.Teachers);
+            return View("Index", await SortByName.ToListAsync());
         }
     }
 }

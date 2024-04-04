@@ -33,7 +33,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasIndex("StudentsStudentId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudent", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -257,7 +257,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("PeScheduleDB.Models.Location", b =>
@@ -279,7 +279,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Location", (string)null);
                 });
 
             modelBuilder.Entity("PeScheduleDB.Models.Schedule", b =>
@@ -305,7 +305,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Schedule");
+                    b.ToTable("Schedule", (string)null);
                 });
 
             modelBuilder.Entity("PeScheduleDB.Models.Student", b =>
@@ -334,7 +334,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("PeScheduleDB.Models.Teacher", b =>
@@ -363,7 +363,7 @@ namespace PeScheduleDB.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.ToTable("Teacher");
+                    b.ToTable("Teacher", (string)null);
                 });
 
             modelBuilder.Entity("CourseStudent", b =>

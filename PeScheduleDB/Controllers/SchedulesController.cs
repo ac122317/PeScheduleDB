@@ -173,9 +173,9 @@ namespace PeScheduleDB.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var filterDate = Date.Value.Date;
+            var FilterDate = Date.Value.Date;
 
-            var ScheduleDate = _context.Schedule.Where(j => j.Date.Date == filterDate).Include (s => s.Courses).Include (s => s.Locations);
+            var ScheduleDate = _context.Schedule.Where(j => j.Date.Date == FilterDate).Include (s => s.Courses).Include (s => s.Locations);
 
             return View("Index", await ScheduleDate.ToListAsync());
         }
