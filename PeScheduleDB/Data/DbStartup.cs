@@ -1,8 +1,8 @@
 ﻿using PeScheduleDB.Models;
 
-namespace PeScheduleDB.Data
+namespace PeScheduleDB.Dummy
 {
-    public class DataforDb
+    public class DataForDb
     {
         public static void SeedData(IApplicationBuilder applicationBuilder)
         {
@@ -20,6 +20,14 @@ namespace PeScheduleDB.Data
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();
 
+                var Teachers = new Teacher[]
+                {
+                new Teacher { LastName = "Bucannan", FirstName = "Mr", Email = "BHN@avcol.school.nz", TeacherCode = "BHN"},
+                new Teacher { LastName = "Bla", FirstName = "Mr", Email = "BLD@avcol.school.nz", TeacherCode = "BLD"},
+                };
+                Context.Teacher.AddRange(Teachers);
+                Context.SaveChanges();
+
                 var Courses = new Course[]
                 {
                 new Course { CourseName = "10HPE", TeacherId = 1},
@@ -30,13 +38,20 @@ namespace PeScheduleDB.Data
                 Context.Course.AddRange(Courses);
                 Context.SaveChanges();
 
-                var Teachers = new Teacher[]
+                var Locations = new Location[]
                 {
-                new Teacher { LastName = "Bucannan", FirstName = "Mr", Email = "BHN@avcol.school.nz", TeacherCode = "BHN"},
-                new Teacher { LastName = "Bla", FirstName = "Mr", Email = "BLD@avcol.school.nz", TeacherCode = "BLD"},
+                new Location { LocationName = "Field"},
+                new Location { LocationName = "Turf"},
+                new Location { LocationName = "Halberg Gym"},
+                new Location { LocationName = "Mills Gym"},
                 };
-                Context.Teacher.AddRange(Teachers);
+                Context.Location.AddRange(Locations);
                 Context.SaveChanges();
+
+                var Schedules = new Schedule[]
+                {
+                new Schedule { CourseId = 1, LocationId = 1, }
+                };
             }
         }
     }

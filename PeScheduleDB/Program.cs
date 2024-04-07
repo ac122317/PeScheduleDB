@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
+using PeScheduleDB.Dummy;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PeScheduleDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PeScheduleDBContext") ?? throw new InvalidOperationException("Connection string 'PeScheduleDBContext' not found.")));
@@ -31,4 +33,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+DataForDb.SeedData(app);
+
 app.Run();
