@@ -21,7 +21,7 @@ namespace PeScheduleDB.Controllers
         // GET: Schedules
         public async Task<IActionResult> Index()
         {
-            var peScheduleDBContext = _context.Schedule.Include(s => s.Courses).Include(s => s.Locations);
+            var peScheduleDBContext = _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations);
             return View(await peScheduleDBContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace PeScheduleDB.Controllers
             var schedule = await _context.Schedule
                 .Include(s => s.Courses)
                 .Include(s => s.Locations)
+                .Include(s => s.Courses.Teachers)
                 .FirstOrDefaultAsync(m => m.ScheduleId == id);
             if (schedule == null)
             {

@@ -24,6 +24,9 @@
                 Course
             </th>
             <th>
+                Teacher
+            </th>
+            <th>
                 Location
             </th>
             <th>
@@ -37,6 +40,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Courses.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.Teachers.TeacherCode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Locations.LocationName)
