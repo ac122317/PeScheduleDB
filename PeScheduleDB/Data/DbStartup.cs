@@ -1,6 +1,6 @@
 ﻿using PeScheduleDB.Models;
 
-namespace PeScheduleDB.Dummy
+namespace PeScheduleDB.DummyData
 {
     public class DataForDb
     {
@@ -10,20 +10,29 @@ namespace PeScheduleDB.Dummy
             {
                 var Context = serviceScope.ServiceProvider.GetService<PeScheduleDBContext>();
 
+                //The if statement ensures that if there is any existing data amongst any of the models, the method will return to prevent the data being added again (thus being duplicated).
+
+                if (Context.Student.Any() || Context.Teacher.Any() || Context.Course.Any() || Context.Location.Any() || Context.Schedule.Any()) 
+                {
+                    return;
+                }
+
                 var Students = new Student[]
                 {
                 new Student { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", Emergency_Contact = "Mum"},
                 new Student { LastName = "Doe", FirstName = "Jane", Email = "JaneDoe@gmail.com", Emergency_Contact = "Dad"},
-                new Student { LastName = "Doe", FirstName = "Henry", Email = "HenryDoe@gmail.com", Emergency_Contact = "Mum"},
-                new Student { LastName = "Doe", FirstName = "Klaus", Email = "KlausDoe@gmail.com", Emergency_Contact = "Dad"},
+                new Student { LastName = "Doe", FirstName = "Henry", Email = "HenryDoe@gmail.com", Emergency_Contact = "0212345678"},
+                new Student { LastName = "Doe", FirstName = "Klaus", Email = "KlausDoe@gmail.com", Emergency_Contact = "098134567"},
                 };
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();
 
                 var Teachers = new Teacher[]
                 {
-                new Teacher { LastName = "Bucannan", FirstName = "Mr", Email = "BHN@avcol.school.nz", TeacherCode = "BHN"},
-                new Teacher { LastName = "Bla", FirstName = "Mr", Email = "BLD@avcol.school.nz", TeacherCode = "BLD"},
+                new Teacher { LastName = "Bucannan", FirstName = "Joseph", Email = "BHN@avcol.school.nz", TeacherCode = "BHN"},
+                new Teacher { LastName = "Davies", FirstName = "Sarah", Email = "DAV@avcol.school.nz", TeacherCode = "DAV"},
+                new Teacher { LastName = "Sykes", FirstName = "Neil", Email = "SKS@avcol.school.nz", TeacherCode = "SKS"},
+                new Teacher { LastName = "Nahi", FirstName = "Claire", Email = "NHI@avcol.school.nz", TeacherCode = "NHI"},
                 };
                 Context.Teacher.AddRange(Teachers);
                 Context.SaveChanges();
@@ -32,8 +41,8 @@ namespace PeScheduleDB.Dummy
                 {
                 new Course { CourseName = "10HPE", TeacherId = 1},
                 new Course { CourseName = "11SPL", TeacherId = 2},
-                new Course { CourseName = "11SPL", TeacherId = 2},
-                new Course { CourseName = "11OED", TeacherId = 1},
+                new Course { CourseName = "12OED", TeacherId = 3},
+                new Course { CourseName = "11OED", TeacherId = 4},
                 };
                 Context.Course.AddRange(Courses);
                 Context.SaveChanges();
@@ -50,8 +59,13 @@ namespace PeScheduleDB.Dummy
 
                 var Schedules = new Schedule[]
                 {
-                new Schedule { CourseId = 1, LocationId = 1, }
+                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 4, 12, 9, 15, 0)},
+                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 4, 12, 10, 35, 0)},
+                new Schedule { CourseId = 3, LocationId = 2, Date = new DateTime(2024, 4, 12, 14, 15, 0)},
+                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 4, 13, 14, 15, 0)},
                 };
+                Context.Schedule.AddRange(Schedules);
+                Context.SaveChanges();
             }
         }
     }

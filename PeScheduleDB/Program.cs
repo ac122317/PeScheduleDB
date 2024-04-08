@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using PeScheduleDB.Dummy;
+using PeScheduleDB.DummyData;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PeScheduleDBContext>(options =>
