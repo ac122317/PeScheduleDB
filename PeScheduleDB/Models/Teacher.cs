@@ -12,7 +12,7 @@ namespace PeScheduleDB.Models
         [Required, MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required, MaxLength(60)]
+        [Required, MaxLength(60), EmailAddress]
         public string Email { get; set; }
 
         [Required, MaxLength(4)]
