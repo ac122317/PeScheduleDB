@@ -18,7 +18,7 @@ namespace PeScheduleDB.Models
         [Required, Range(9,13)]
         public int YearLevel { get; set; }
 
-        [Required, MaxLength(25)]
+        [Required, RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format (please include +64)")]
         public string Emergency_Contact { get; set; }
         public List<Course> Courses { get; set; }
     }
