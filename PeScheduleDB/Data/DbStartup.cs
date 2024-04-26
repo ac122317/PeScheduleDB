@@ -19,10 +19,11 @@ namespace PeScheduleDB.DummyData
 
                 var Students = new Student[]
                 {
-                new Student { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", Emergency_Contact = "Mum"},
-                new Student { LastName = "Doe", FirstName = "Jane", Email = "JaneDoe@gmail.com", Emergency_Contact = "Dad"},
-                new Student { LastName = "Doe", FirstName = "Henry", Email = "HenryDoe@gmail.com", Emergency_Contact = "0212345678"},
-                new Student { LastName = "Doe", FirstName = "Klaus", Email = "KlausDoe@gmail.com", Emergency_Contact = "098134567"},
+                new Student { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", YearLevel = 12, Emergency_Contact = "Mum"},
+                new Student { LastName = "Doe", FirstName = "Jane", Email = "JaneDoe@gmail.com", YearLevel = 9, Emergency_Contact = "Dad"},
+                new Student { LastName = "Doe", FirstName = "Henry", Email = "HenryDoe@gmail.com",
+                  YearLevel = 10, Emergency_Contact = "0212345678"},
+                new Student { LastName = "Doe", FirstName = "Klaus", Email = "KlausDoe@gmail.com", YearLevel = 11, Emergency_Contact = "098134567"},
                 };
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();

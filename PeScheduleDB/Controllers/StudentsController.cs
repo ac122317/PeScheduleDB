@@ -54,7 +54,7 @@ namespace PeScheduleDB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,LastName,FirstName,Email,Emergency_Contact")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,LastName,FirstName,Email,YearLevel,Emergency_Contact")] Student student)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace PeScheduleDB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,LastName,FirstName,Email,Emergency_Contact")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,LastName,FirstName,Email,YearLevel,Emergency_Contact")] Student student)
         {
             if (id != student.StudentId)
             {

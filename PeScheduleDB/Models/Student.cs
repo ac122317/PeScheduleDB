@@ -15,6 +15,9 @@ namespace PeScheduleDB.Models
         [Required, MaxLength(60), EmailAddress]
         public string Email { get; set; }
 
+        [Required, Range(9,13)]
+        public int YearLevel { get; set; }
+
         [Required, MaxLength(25)]
         public string Emergency_Contact { get; set; }
         public List<Course> Courses { get; set; }

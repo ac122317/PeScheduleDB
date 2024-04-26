@@ -29,6 +29,9 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
+                Year Level
+            </th>
+            <th>
                 Emergency Contact
             </th>
             <th></th>
@@ -45,6 +48,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearLevel)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Emergency_Contact)
