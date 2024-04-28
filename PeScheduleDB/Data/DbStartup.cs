@@ -60,10 +60,10 @@ namespace PeScheduleDB.DummyData
 
                 var Schedules = new Schedule[]
                 {
-                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 4, 12, 9, 15, 0)},
-                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 4, 12, 10, 35, 0)},
-                new Schedule { CourseId = 3, LocationId = 2, Date = new DateTime(2024, 4, 12, 14, 15, 0)},
-                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 4, 13, 14, 15, 0)},
+                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 5, 8, 9, 15, 0)},
+                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 5, 8, 10, 35, 0)},
+                new Schedule { CourseId = 3, LocationId = 2, Date = new DateTime(2024, 5, 9, 14, 15, 0)},
+                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 5, 10, 14, 15, 0)},
                 };
                 Context.Schedule.AddRange(Schedules);
                 Context.SaveChanges();

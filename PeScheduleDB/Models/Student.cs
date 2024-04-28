@@ -6,13 +6,13 @@ namespace PeScheduleDB.Models
         [Key]
         public int StudentId { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(20)]
         public string LastName { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(20)]
         public string FirstName { get; set; }
 
-        [Required, MaxLength(60), EmailAddress]
+        [Required, MaxLength(35), EmailAddress]
         public string Email { get; set; }
 
         [Required, Range(9,13)]

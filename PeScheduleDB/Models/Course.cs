@@ -7,10 +7,10 @@ namespace PeScheduleDB.Models
         [Key]
         public int CourseId { get; set; }
 
-        [Required, MaxLength(25)]
+        [Required, MaxLength(5)]
         public string CourseName { get; set; }
 
-        [ForeignKey("Teacher")]
+        [ForeignKey("Teacher"), Required]
         public int TeacherId { get; set; }
         public Teacher Teachers { get; set; }
         public List<Location> Locations { get; set; }
