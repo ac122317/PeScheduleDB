@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PeScheduleDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PeScheduleDBContext") ?? throw new InvalidOperationException("Connection string 'PeScheduleDBContext' not found.")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PeScheduleDBContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<PeScheduleDBContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -35,5 +37,32 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 DataForDb.SeedData(app);
+
+using (var scope = app.Services.CreateScope())
+{
+    var PeDbRoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (!await PeDbRoleManager.RoleExistsAsync("Teacher"))
+        await PeDbRoleManager.CreateAsync(new IdentityRole("Teacher"));
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var PeDbUserManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    string teacherEmail = "teacher@avcol.school.nz";
+    string teacherPassword = "TestTeacher123!";
+
+    if (await PeDbUserManager.FindByEmailAsync(teacherEmail) == null)
+    {
+        var user = new IdentityUser();
+        user.UserName = teacherEmail;
+        user.Email = teacherEmail;
+
+        await PeDbUserManager.CreateAsync(user, teacherPassword);
+        await PeDbUserManager.AddToRoleAsync(user, "Teacher");
+    }
+}
+
 
 app.Run();

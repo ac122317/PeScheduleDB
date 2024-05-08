@@ -12,7 +12,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teacher")]
     public class CoursesController : Controller
     {
         private readonly PeScheduleDBContext _context;

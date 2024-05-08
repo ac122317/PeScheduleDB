@@ -11,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teacher")]
     public class LocationsController : Controller
     {
         private readonly PeScheduleDBContext _context;
