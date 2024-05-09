@@ -24,26 +24,57 @@ namespace PeScheduleDB.DummyData
                 new Student { LastName = "Doe", FirstName = "Henry", Email = "HenryDoe@gmail.com",
                   YearLevel = 10, Emergency_Contact = "+640212345678"},
                 new Student { LastName = "Doe", FirstName = "Klaus", Email = "KlausDoe@gmail.com", YearLevel = 11, Emergency_Contact = "+64098134567"},
+                new Student { LastName = "Doe", FirstName = "Tim", Email = "TimDoe@gmail.com", YearLevel = 13, Emergency_Contact = "+640221876543"},
+                new Student { LastName = "Doe", FirstName = "Mary", Email = "MaryDoe@gmail.com", YearLevel = 9, Emergency_Contact = "+640221543789"},
+                new Student { LastName = "Doe", FirstName = "Henrik", Email = "HenrikDoe@gmail.com",
+                  YearLevel = 11, Emergency_Contact = "+640221657843"},
+                new Student { LastName = "Doe", FirstName = "Carol", Email = "CarolDoe@gmail.com", YearLevel = 13, Emergency_Contact = "+640221345678"},
+                new Student { LastName = "Doe", FirstName = "Patrick", Email = "PatrickDoe@gmail.com", YearLevel = 12, Emergency_Contact = "+640221876543"},
+                new Student { LastName = "Doe", FirstName = "Monty", Email = "MontyDoe@gmail.com", YearLevel = 10, Emergency_Contact = "+640221987654"},
+                new Student { LastName = "Doe", FirstName = "Hellen", Email = "HellenDoe@gmail.com",
+                  YearLevel = 10, Emergency_Contact = "+640221768432"},
+                new Student { LastName = "Doe", FirstName = "Vijay", Email = "VijayDoe@gmail.com", YearLevel = 13, Emergency_Contact = "+640223874569"},
                 };
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();
 
                 var Teachers = new Teacher[]
                 {
-                new Teacher { LastName = "Bucannan", FirstName = "Joseph", Email = "BHN@avcol.school.nz", TeacherCode = "BHN"},
-                new Teacher { LastName = "Davies", FirstName = "Sarah", Email = "DAV@avcol.school.nz", TeacherCode = "DAV"},
-                new Teacher { LastName = "Sykes", FirstName = "Neil", Email = "SKS@avcol.school.nz", TeacherCode = "SKS"},
-                new Teacher { LastName = "Nahi", FirstName = "Claire", Email = "NHI@avcol.school.nz", TeacherCode = "NHI"},
+                new Teacher { LastName = "Davies", FirstName = "Sarah", Email = "dav@avcol.school.nz", TeacherCode = "DAV" },
+                new Teacher { LastName = "Buchanan", FirstName = "Joseph", Email = "bhn@avcol.school.nz", TeacherCode = "BHN" },
+                new Teacher { LastName = "Chamley", FirstName = "Lydia", Email = "chy@avcol.school.nz", TeacherCode = "CHY" },
+                new Teacher { LastName = "Dewsnap", FirstName = "Dave", Email = "dsp@avcol.school.nz", TeacherCode = "DSP" },
+                new Teacher { LastName = "Eccles", FirstName = "Gavin", Email = "els@avcol.school.nz", TeacherCode = "ELS" },
+                new Teacher { LastName = "Goldthorpe", FirstName = "Meg", Email = "gdt@avcol.school.nz", TeacherCode = "GDT" },
+                new Teacher { LastName = "Hita", FirstName = "Peter", Email = "hta@avcol.school.nz", TeacherCode = "HTA" },
+                new Teacher { LastName = "Johnston", FirstName = "Ross", Email = "jhr@avcol.school.nz", TeacherCode = "JHR" },
+                new Teacher { LastName = "Joynes", FirstName = "Emma", Email = "jyn@avcol.school.nz", TeacherCode = "JYN" },
+                new Teacher { LastName = "Nahi", FirstName = "Claire", Email = "nhi@avcol.school.nz", TeacherCode = "NHI" },
+                new Teacher { LastName = "Page", FirstName = "Liz", Email = "pal@avcol.school.nz", TeacherCode = "PAL" },
+                new Teacher { LastName = "Piper-Healion", FirstName = "Jay", Email = "phn@avcol.school.nz", TeacherCode = "PHN" },
+                new Teacher { LastName = "Sykes", FirstName = "Neil", Email = "sks@avcol.school.nz", TeacherCode = "SKS" },
+                new Teacher { LastName = "Went", FirstName = "James", Email = "wnt@avcol.school.nz", TeacherCode = "WNT" }
                 };
                 Context.Teacher.AddRange(Teachers);
                 Context.SaveChanges();
 
                 var Courses = new Course[]
                 {
-                new Course { CourseName = "10HPE", TeacherId = 1},
-                new Course { CourseName = "11SPL", TeacherId = 2},
-                new Course { CourseName = "12OED", TeacherId = 3},
-                new Course { CourseName = "11OED", TeacherId = 4},
+                new Course { CourseName = "9HPE", TeacherId = 1 },
+                new Course { CourseName = "10HPE", TeacherId = 2 },
+                new Course { CourseName = "10SPC", TeacherId = 3 },
+                new Course { CourseName = "11HPE", TeacherId = 4 },
+                new Course { CourseName = "11SPC", TeacherId = 5 },
+                new Course { CourseName = "11HLT", TeacherId = 6 },
+                new Course { CourseName = "12HPE", TeacherId = 7 },
+                new Course { CourseName = "12SPC", TeacherId = 8 },
+                new Course { CourseName = "12HLT", TeacherId = 9 },
+                new Course { CourseName = "13HPE", TeacherId = 10 },
+                new Course { CourseName = "13SPC", TeacherId = 11 },
+                new Course { CourseName = "13CPE", TeacherId = 12 },
+                new Course { CourseName = "13PED", TeacherId = 13 },
+                new Course { CourseName = "13OED", TeacherId = 14 },
+                new Course { CourseName = "13SPL", TeacherId = 1 }
                 };
                 Context.Course.AddRange(Courses);
                 Context.SaveChanges();
@@ -60,10 +91,20 @@ namespace PeScheduleDB.DummyData
 
                 var Schedules = new Schedule[]
                 {
-                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 5, 8, 9, 15, 0)},
-                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 5, 8, 10, 35, 0)},
-                new Schedule { CourseId = 3, LocationId = 2, Date = new DateTime(2024, 5, 9, 14, 15, 0)},
-                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 5, 10, 14, 15, 0)},
+                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 6, 8, 9, 15, 0)},
+                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 6, 9, 10, 0, 0)},
+                new Schedule { CourseId = 3, LocationId = 3, Date = new DateTime(2024, 6, 10, 11, 30, 0)},
+                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 6, 11, 12, 45, 0)},
+                new Schedule { CourseId = 5, LocationId = 1, Date = new DateTime(2024, 6, 12, 14, 0, 0)},
+                new Schedule { CourseId = 6, LocationId = 2, Date = new DateTime(2024, 6, 13, 9, 30, 0)},
+                new Schedule { CourseId = 7, LocationId = 3, Date = new DateTime(2024, 6, 14, 10, 45, 0)},
+                new Schedule { CourseId = 8, LocationId = 4, Date = new DateTime(2024, 6, 8, 11, 0, 0)},
+                new Schedule { CourseId = 9, LocationId = 1, Date = new DateTime(2024, 6, 9, 12, 15, 0)},
+                new Schedule { CourseId = 10, LocationId = 2, Date = new DateTime(2024, 6, 10, 13, 30, 0)},
+                new Schedule { CourseId = 11, LocationId = 3, Date = new DateTime(2024, 6, 11, 14, 45, 0)},
+                new Schedule { CourseId = 12, LocationId = 4, Date = new DateTime(2024, 6, 12, 9, 0, 0)},
+                new Schedule { CourseId = 13, LocationId = 1, Date = new DateTime(2024, 6, 13, 10, 15, 0)},
+                new Schedule { CourseId = 14, LocationId = 2, Date = new DateTime(2024, 6, 14, 11, 30, 0)}
                 };
                 Context.Schedule.AddRange(Schedules);
                 Context.SaveChanges();
