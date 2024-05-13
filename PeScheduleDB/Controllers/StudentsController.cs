@@ -22,10 +22,24 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Student.ToListAsync());
-        }
+
+                ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                
+                var students = from s in _context.Student select s;
+
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        students = students.OrderByDescending(s => s.FirstName);
+                        break;
+                    default:
+                        students = students.OrderBy(s => s.FirstName);
+                        break;
+                }
+                return View(await students.AsNoTracking().ToListAsync());
+            }
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -165,6 +179,7 @@ namespace PeScheduleDB.Controllers
             }
 
             var SortByName = _context.Student.Where(j => j.FirstName == FirstName);
+
             return View("Index", await SortByName.ToListAsync());
         }
     }
