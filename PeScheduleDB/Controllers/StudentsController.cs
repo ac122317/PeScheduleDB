@@ -39,7 +39,7 @@ namespace PeScheduleDB.Controllers
                         break;
                 }
                 return View(await students.AsNoTracking().ToListAsync());
-            }
+        }
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)

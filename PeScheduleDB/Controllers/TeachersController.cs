@@ -22,9 +22,22 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Teachers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Teacher.ToListAsync());
+                ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+                var teachers = from t in _context.Teacher select t;
+
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        teachers = teachers.OrderByDescending(s => s.FirstName);
+                        break;
+                    default:
+                        teachers = teachers.OrderBy(s => s.FirstName);
+                        break;
+                }
+                return View(await teachers.AsNoTracking().ToListAsync());
         }
 
         // GET: Teachers/Details/5
@@ -56,13 +69,28 @@ namespace PeScheduleDB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeacherId,LastName,FirstName,Email,TeacherCode")] Teacher teacher)
+        public async Task<IActionResult> Create([Bind("TeacherId,LastName,FirstName,Email")] Teacher teacher)
         {
+
             if (!ModelState.IsValid)
             {
-                _context.Add(teacher);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //bool ValidCode = false;
+                //do
+                //{
+                    teacher.TeacherCode = (teacher.LastName.Substring(0, 2) + teacher.FirstName.Substring(0, 1)).ToUpper();
+                    //var TeachersCodes = _context.Teacher.Where(t => t.TeacherCode == teacher.TeacherCode).Count();
+                    //ValidCode = true;
+
+                    /*if (TeachersCodes > 1)
+                    {
+                        teacher.TeacherCode = (teacher.LastName.Substring(0, 3)).ToUpper();
+                        ValidCode = false;
+                    }
+                    */
+                    _context.Add(teacher);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                //} while (ValidCode != true);
             }
             return View(teacher);
         }

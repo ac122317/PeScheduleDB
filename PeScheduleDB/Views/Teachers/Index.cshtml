@@ -23,7 +23,7 @@
                 Last Name
             </th>
             <th>
-                First Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
