@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Locations</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -20,7 +20,7 @@
     <thead>
         <tr>
             <th>
-                Location Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Location Name</a>
             </th>
             <th></th>
         </tr>

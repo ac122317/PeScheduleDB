@@ -22,9 +22,23 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Location.ToListAsync());
+
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var locations = from l in _context.Location select l;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    locations = locations.OrderByDescending(l => l.LocationName);
+                    break;
+                default:
+                    locations = locations.OrderBy(l => l.LocationName);
+                    break;
+            }
+            return View(await locations.AsNoTracking().ToListAsync());
         }
 
         // GET: Locations/Details/5

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Teacher</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -23,7 +23,7 @@
                 Last Name
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">First Name</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
