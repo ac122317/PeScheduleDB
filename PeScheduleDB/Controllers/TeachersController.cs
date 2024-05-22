@@ -69,28 +69,17 @@ namespace PeScheduleDB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeacherId,LastName,FirstName,Email")] Teacher teacher)
+        public async Task<IActionResult> Create([Bind("TeacherId,LastName,FirstName")] Teacher teacher)
         {
 
             if (!ModelState.IsValid)
             {
-                //bool ValidCode = false;
-                //do
-                //{
                     teacher.TeacherCode = (teacher.LastName.Substring(0, 2) + teacher.FirstName.Substring(0, 1)).ToUpper();
-                    //var TeachersCodes = _context.Teacher.Where(t => t.TeacherCode == teacher.TeacherCode).Count();
-                    //ValidCode = true;
+                    teacher.Email = (teacher.TeacherCode + "@avcol.school.nz").ToLower();
 
-                    /*if (TeachersCodes > 1)
-                    {
-                        teacher.TeacherCode = (teacher.LastName.Substring(0, 3)).ToUpper();
-                        ValidCode = false;
-                    }
-                    */
                     _context.Add(teacher);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                //} while (ValidCode != true);
+                    return RedirectToAction(nameof(Index));      
             }
             return View(teacher);
         }
