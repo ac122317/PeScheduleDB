@@ -10,10 +10,11 @@
     <a asp-action="Create">Create New</a>
 </p>
 <div>
-    <p>Sort schedule by date:</p>
+    <p>Search a specific date:</p>
     <form asp-action="SortSchedule" asp-controller="Schedules" method="get">
         <input type="date" name="Date" value="Date" />
         <input type="submit" name="submit" value="Submit" />
+        <a asp-action="Index">Back</a>
     </form>
 </div>
 

@@ -10,11 +10,14 @@
     <a asp-action="Create">Create New</a>
 </p>
 <div>
-    <p>Search student by first name:</p>
+    <p>Search student by first name:</p> 
     <form asp-action="SearchStudent" asp-controller="Students">
-        <input type="text" name="FirstName" value="" />
+        <input type="text" name="Name" value="" />
         <input type="submit" name="submit" value="Search" />
-    </form>
+        <a asp-action="Index">Back</a>
+    </form> 
+
+    
 </div>
 <table class="table">
     <thead>

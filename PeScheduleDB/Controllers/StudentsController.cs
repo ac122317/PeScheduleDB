@@ -170,15 +170,15 @@ namespace PeScheduleDB.Controllers
             return _context.Student.Any(e => e.StudentId == id);
         }
 
-        public async Task<IActionResult> SearchStudent(string FirstName)
+        public async Task<IActionResult> SearchStudent(string Name)
         {
-            if (FirstName == null)
+            if (Name == null)
             {
 
                 return RedirectToAction(nameof(Index));
             }
 
-            var SortByName = _context.Student.Where(j => j.FirstName == FirstName);
+            var SortByName = _context.Student.Where(j => j.FirstName == Name || j.LastName == Name);
 
             return View("Index", await SortByName.ToListAsync());
         }
