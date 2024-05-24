@@ -23,10 +23,23 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var peScheduleDBContext = _context.Course.Include(c => c.Teachers);
-            return View(await peScheduleDBContext.ToListAsync());
+
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var courses = from c in _context.Course.Include(c => c.Teachers) select c;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    courses = courses.OrderByDescending(c => c.Teachers.TeacherCode);
+                    break;
+                default:
+                    courses = courses.OrderBy(c => c.Teachers.TeacherCode);
+                    break;
+            }
+            return View(await courses.AsNoTracking().ToListAsync());
         }
 
         // GET: Courses/Details/5
