@@ -10,6 +10,9 @@ namespace PeScheduleDB.DummyData
             {
                 var Context = serviceScope.ServiceProvider.GetService<PeScheduleDBContext>();
 
+                //Statement to ensure the database is created when the project is run.
+                Context.Database.EnsureCreated();
+
                 //The if statement ensures that if there is any existing data amongst any of the models, the method will return to prevent the data being added again (thus being duplicated).
 
                 if (Context.Student.Any() || Context.Teacher.Any() || Context.Course.Any() || Context.Location.Any() || Context.Schedule.Any()) 
