@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
 
@@ -21,10 +22,23 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var peScheduleDBContext = _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations);
-            return View(await peScheduleDBContext.ToListAsync());
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var schedules = from s in _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations) select s;
+
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    schedules = schedules.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    schedules = schedules.OrderBy(s => s.Date);
+                    break;
+            }
+
+            return View(await schedules.ToListAsync());
         }
 
         // GET: Schedules/Details/5
