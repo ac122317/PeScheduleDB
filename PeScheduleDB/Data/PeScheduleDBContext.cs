@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PeScheduleDB.Areas.Identity.Data;
 using PeScheduleDB.Models;
 
-    public class PeScheduleDBContext : IdentityDbContext
+    public class PeScheduleDBContext : IdentityDbContext<ScheduleUser>
     {
         public PeScheduleDBContext (DbContextOptions<PeScheduleDBContext> options)
             : base(options)

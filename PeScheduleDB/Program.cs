@@ -2,12 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using PeScheduleDB.DummyData;
+using PeScheduleDB.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PeScheduleDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PeScheduleDBContext") ?? throw new InvalidOperationException("Connection string 'PeScheduleDBContext' not found.")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<ScheduleUser>(options => options.SignIn.RequireConfirmedAccount = false)
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<PeScheduleDBContext>();
 
@@ -38,7 +39,7 @@ app.MapRazorPages();
 
 DataForDb.SeedData(app);
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var PeDbRoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -48,21 +49,21 @@ using (var scope = app.Services.CreateScope())
 
 using (var scope = app.Services.CreateScope())
 {
-    var PeDbUserManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var PeDbUserManager = scope.ServiceProvider.GetRequiredService<UserManager<ScheduleUser>>();
 
     string teacherEmail = "teacher@avcol.school.nz";
     string teacherPassword = "TestTeacher123!";
 
     if (await PeDbUserManager.FindByEmailAsync(teacherEmail) == null)
     {
-        var user = new IdentityUser();
+        var user = new ScheduleUser();
         user.UserName = teacherEmail;
         user.Email = teacherEmail;
 
         await PeDbUserManager.CreateAsync(user, teacherPassword);
         await PeDbUserManager.AddToRoleAsync(user, "Teacher");
     }
-}
+}*/
 
 
 app.Run();

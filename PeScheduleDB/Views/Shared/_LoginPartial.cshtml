@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using PeScheduleDB.Areas.Identity.Data;
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ScheduleUser> SignInManager
+@inject UserManager<ScheduleUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
