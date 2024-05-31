@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using PeScheduleDB.DummyData;
 using PeScheduleDB.Areas.Identity.Data;
+using Microsoft.AspNetCore.Components.Forms;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PeScheduleDBContext>(options =>
@@ -39,7 +40,7 @@ app.MapRazorPages();
 
 DataForDb.SeedData(app);
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var PeDbRoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -53,17 +54,20 @@ using (var scope = app.Services.CreateScope())
 
     string teacherEmail = "teacher@avcol.school.nz";
     string teacherPassword = "TestTeacher123!";
+    
 
     if (await PeDbUserManager.FindByEmailAsync(teacherEmail) == null)
     {
         var user = new ScheduleUser();
         user.UserName = teacherEmail;
         user.Email = teacherEmail;
+        user.FirstName ="Test";
+        user.LastName = "Teacher";
 
         await PeDbUserManager.CreateAsync(user, teacherPassword);
         await PeDbUserManager.AddToRoleAsync(user, "Teacher");
     }
-}*/
+}
 
 
 app.Run();

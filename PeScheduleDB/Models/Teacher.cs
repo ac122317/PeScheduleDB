@@ -6,10 +6,10 @@ namespace PeScheduleDB.Models
         [Key]
         public int TeacherId { get; set; }
 
-        [Required, MaxLength(20)]
+        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters, no special characters or spaces.")]
         public string LastName { get; set; }
 
-        [Required, MaxLength(20)]
+        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
         public string FirstName { get; set; }
 
         [Required, MaxLength(35), EmailAddress]
