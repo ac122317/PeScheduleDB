@@ -63,6 +63,7 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules/Create
+        [Authorize(Roles = "Teacher")]
         public IActionResult Create()
         {
             ViewData["CourseId"] = new SelectList(_context.Course, "CourseId", "CourseName");
@@ -89,6 +90,7 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules/Edit/5
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -144,6 +146,7 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules/Delete/5
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
