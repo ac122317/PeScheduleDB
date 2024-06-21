@@ -73,11 +73,13 @@ namespace PeScheduleDB.Areas.Identity.Pages.Account
         {
             [Required]
             [StringLength(50)]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
             [StringLength(50)]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters, no special characters or spaces.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
             /// <summary>
