@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+
+    DateTime min = DateTime.Now;
 }
 
 <h1>Create</h1>
@@ -22,7 +24,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label">Date/Time</label>
-                <input asp-for="Date" class="form-control" />
+                <!--Added validation-->
+                <input asp-for="Date" class="form-control" type="datetime-local" min="@min.ToString("yyyy-MM-dd")T09:00"/>
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">

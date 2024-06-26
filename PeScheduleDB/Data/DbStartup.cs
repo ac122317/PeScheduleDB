@@ -94,20 +94,20 @@ namespace PeScheduleDB.DummyData
 
                 var Schedules = new Schedule[]
                 {
-                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 6, 8, 9, 15, 0)},
-                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 6, 9, 10, 0, 0)},
-                new Schedule { CourseId = 3, LocationId = 3, Date = new DateTime(2024, 6, 10, 11, 30, 0)},
-                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 6, 11, 12, 45, 0)},
-                new Schedule { CourseId = 5, LocationId = 1, Date = new DateTime(2024, 6, 12, 14, 0, 0)},
-                new Schedule { CourseId = 6, LocationId = 2, Date = new DateTime(2024, 6, 13, 9, 30, 0)},
-                new Schedule { CourseId = 7, LocationId = 3, Date = new DateTime(2024, 6, 14, 10, 45, 0)},
-                new Schedule { CourseId = 8, LocationId = 4, Date = new DateTime(2024, 6, 8, 11, 0, 0)},
-                new Schedule { CourseId = 9, LocationId = 1, Date = new DateTime(2024, 6, 9, 12, 15, 0)},
-                new Schedule { CourseId = 10, LocationId = 2, Date = new DateTime(2024, 6, 10, 13, 30, 0)},
-                new Schedule { CourseId = 11, LocationId = 3, Date = new DateTime(2024, 6, 11, 14, 45, 0)},
-                new Schedule { CourseId = 12, LocationId = 4, Date = new DateTime(2024, 6, 12, 9, 0, 0)},
-                new Schedule { CourseId = 13, LocationId = 1, Date = new DateTime(2024, 6, 13, 10, 15, 0)},
-                new Schedule { CourseId = 14, LocationId = 2, Date = new DateTime(2024, 6, 14, 11, 30, 0)}
+                new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 7, 22, 9, 15, 0)},
+                new Schedule { CourseId = 2, LocationId = 2, Date = new DateTime(2024, 7, 22, 10, 0, 0)},
+                new Schedule { CourseId = 3, LocationId = 3, Date = new DateTime(2024, 7, 23, 11, 30, 0)},
+                new Schedule { CourseId = 4, LocationId = 4, Date = new DateTime(2024, 7, 23, 12, 45, 0)},
+                new Schedule { CourseId = 5, LocationId = 1, Date = new DateTime(2024, 7, 24, 14, 0, 0)},
+                new Schedule { CourseId = 6, LocationId = 2, Date = new DateTime(2024, 7, 24, 9, 30, 0)},
+                new Schedule { CourseId = 7, LocationId = 3, Date = new DateTime(2024, 7, 25, 10, 45, 0)},
+                new Schedule { CourseId = 8, LocationId = 4, Date = new DateTime(2024, 7, 25, 11, 0, 0)},
+                new Schedule { CourseId = 9, LocationId = 1, Date = new DateTime(2024, 7, 26, 12, 15, 0)},
+                new Schedule { CourseId = 10, LocationId = 2, Date = new DateTime(2024, 7, 26, 13, 30, 0)},
+                new Schedule { CourseId = 11, LocationId = 3, Date = new DateTime(2024, 7, 27, 14, 45, 0)},
+                new Schedule { CourseId = 12, LocationId = 4, Date = new DateTime(2024, 7, 27, 9, 0, 0)},
+                new Schedule { CourseId = 13, LocationId = 1, Date = new DateTime(2024, 7, 28, 10, 15, 0)},
+                new Schedule { CourseId = 14, LocationId = 2, Date = new DateTime(2024, 7, 28, 11, 30, 0)}
                 };
                 Context.Schedule.AddRange(Schedules);
                 Context.SaveChanges();
