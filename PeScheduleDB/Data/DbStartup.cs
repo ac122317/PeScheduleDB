@@ -9,7 +9,7 @@ namespace PeScheduleDB.DummyData
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 var Context = serviceScope.ServiceProvider.GetService<PeScheduleDBContext>();
-
+                
                 //Statement to ensure the database is created when the project is run.
                 Context.Database.EnsureCreated();
 
