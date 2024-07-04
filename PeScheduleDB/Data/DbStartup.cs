@@ -37,6 +37,7 @@ namespace PeScheduleDB.DummyData
                 new Student { LastName = "Doe", FirstName = "Hellen", Email = "HellenDoe@gmail.com",
                   YearLevel = 10, Emergency_Contact = "+640221768432"},
                 new Student { LastName = "Doe", FirstName = "Vijay", Email = "VijayDoe@gmail.com", YearLevel = 13, Emergency_Contact = "+640223874569"},
+                new Student { LastName = "Jeps", FirstName = "Ross", Email = "RossJeps@gmail.com", YearLevel = 11, Emergency_Contact = "+640223874578"}
                 };
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();
