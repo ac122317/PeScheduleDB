@@ -7,7 +7,7 @@ namespace PeScheduleDB.Models
         [Key]
         public int CourseId { get; set; }
 
-        [Required, MaxLength(5)]
+        [Required, MaxLength(5), RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Name must only contain letters or numbers and no spaces/special characters")]
         public string CourseName { get; set; }
 
         [ForeignKey("Teacher"), Required]
