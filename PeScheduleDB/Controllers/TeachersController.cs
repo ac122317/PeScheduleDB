@@ -74,7 +74,22 @@ namespace PeScheduleDB.Controllers
 
             if (!ModelState.IsValid)
             {
-                    teacher.TeacherCode = (teacher.LastName.Substring(0, 2) + teacher.FirstName.Substring(0, 1)).ToUpper();
+                    //Generate a starter teacher code using the first 2 characters of the Last name and the first character of the First name
+                    string initialTeacherCode = (teacher.LastName.Substring(0, 2) + teacher.FirstName.Substring(0, 1)).ToUpper();
+
+                    
+                    string teacherCode = initialTeacherCode;
+                    int suffix = 1;
+                
+                    //Checking to see if the new teacher's code matches any other teacher code of a teacher that already exists, if so it adds a number to the end of it to ensure it is unique.
+                    while (await _context.Teacher.AnyAsync(t => t.TeacherCode == teacherCode))
+                    {
+                        teacherCode = initialTeacherCode + suffix.ToString();
+                        suffix++;
+                    }   
+                    teacher.TeacherCode = teacherCode;
+
+                    //Generating a teacher email by using the teacher code and added it to the avcol email domain.
                     teacher.Email = (teacher.TeacherCode + "@avcol.school.nz").ToLower();
 
                     _context.Add(teacher);
