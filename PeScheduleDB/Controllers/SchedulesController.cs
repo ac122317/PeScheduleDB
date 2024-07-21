@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
-{
+{   
     [Authorize]
     public class SchedulesController : Controller
     {
@@ -22,11 +23,28 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder)? "date_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
 
             var schedules = from s in _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations) select s;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                schedules = schedules.Where(s => s.Courses.CourseName.Contains(searchString) || s.Locations.LocationName.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
@@ -38,7 +56,8 @@ namespace PeScheduleDB.Controllers
                     break;
             }
 
-            return View(await schedules.ToListAsync());
+            int pageSize = 10;
+            return View(await PaginatedList<Schedule>.CreateAsync(schedules.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Schedules/Details/5
@@ -185,7 +204,7 @@ namespace PeScheduleDB.Controllers
         {
             return _context.Schedule.Any(e => e.ScheduleId == id);
         }
-        public async Task<IActionResult> SortSchedule(DateTime? Date)
+        public async Task<IActionResult> SortSchedule(DateTime? Date, string sortOrder, string currentFilter, int? pageNumber)
         {
             if (Date == null)
             {
@@ -193,11 +212,23 @@ namespace PeScheduleDB.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var FilterDate = Date.Value.Date;
+            var schedules = from s in _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations)
+                            where s.Date.Date == Date.Value.Date
+                            select s;
 
-            var ScheduleDate = _context.Schedule.Where(j => j.Date.Date == FilterDate).Include (s => s.Courses).ThenInclude(s => s.Teachers).Include (s => s.Locations);
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    schedules = schedules.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    schedules = schedules.OrderBy(s => s.Date);
+                    break;
+            }
 
-            return View("Index", await ScheduleDate.ToListAsync());
+            int pageSize = 10;
+
+            return View("Index", await PaginatedList<Schedule>.CreateAsync(schedules.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
     }
