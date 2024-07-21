@@ -4,10 +4,12 @@ namespace PeScheduleDB.DummyData
 {
     public class DataForDb
     {
+        //This method is to seed initial data into the database
         public static void SeedData(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
+                //Retrieving the db context
                 var Context = serviceScope.ServiceProvider.GetService<PeScheduleDBContext>();
                 
                 //Statement to ensure the database is created when the project is run.
@@ -20,6 +22,7 @@ namespace PeScheduleDB.DummyData
                     return;
                 }
 
+                //Creating and adding new students to the database.
                 var Students = new Student[]
                 {
                 new Student { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", YearLevel = 12, Emergency_Contact = "+640278321892"},
@@ -42,6 +45,7 @@ namespace PeScheduleDB.DummyData
                 Context.Student.AddRange(Students);
                 Context.SaveChanges();
 
+                //Creating and adding new teachers to the database.
                 var Teachers = new Teacher[]
                 {
                 new Teacher { LastName = "Davies", FirstName = "Sarah", Email = "dav@avcol.school.nz", TeacherCode = "DAV" },
@@ -62,6 +66,7 @@ namespace PeScheduleDB.DummyData
                 Context.Teacher.AddRange(Teachers);
                 Context.SaveChanges();
 
+                //Creating and adding new courses to the database.
                 var Courses = new Course[]
                 {
                 new Course { CourseName = "9HPE", TeacherId = 1 },
@@ -83,6 +88,7 @@ namespace PeScheduleDB.DummyData
                 Context.Course.AddRange(Courses);
                 Context.SaveChanges();
 
+                //Creating and adding new locations to the database.
                 var Locations = new Location[]
                 {
                 new Location { LocationName = "Field"},
@@ -93,6 +99,7 @@ namespace PeScheduleDB.DummyData
                 Context.Location.AddRange(Locations);
                 Context.SaveChanges();
 
+                //Creating and adding new schedule records to the database.
                 var Schedules = new Schedule[]
                 {
                 new Schedule { CourseId = 1, LocationId = 1, Date = new DateTime(2024, 7, 22, 9, 15, 0)},

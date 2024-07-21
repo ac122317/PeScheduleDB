@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PeScheduleDB.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PeScheduleDB.Controllers
 {   
@@ -23,11 +22,13 @@ namespace PeScheduleDB.Controllers
         }
 
         // GET: Schedules
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber) //Parsing necessary variables for sorting and pagination.
         {
+            //Assigning values to sorting parameters
             ViewData["CurrentSort"] = sortOrder;
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder)? "date_desc" : "";
 
+            //If the user enters something, the 1st page of results is displayed.
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -37,15 +38,19 @@ namespace PeScheduleDB.Controllers
                 searchString = currentFilter;
             }
 
+            //Set the current filter to the user input
             ViewData["CurrentFilter"] = searchString;
 
+            //Fetching the data from the database and its related data from other tables - (via include).
             var schedules = from s in _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations) select s;
 
+            //Applying the search filter if user inputs one (using the where and contains keywords to ensure the data matches the criteria entered).
             if (!string.IsNullOrEmpty(searchString))
             {
                 schedules = schedules.Where(s => s.Courses.CourseName.Contains(searchString) || s.Locations.LocationName.Contains(searchString));
             }
 
+            //Apply sorting based on the sortOrder parameter (in this case sorting by date upon clicking the hyperlink)
             switch (sortOrder)
             {
                 case "date_desc":
@@ -56,7 +61,9 @@ namespace PeScheduleDB.Controllers
                     break;
             }
 
-            int pageSize = 10;
+            int pageSize = 10; //Sets the number of records per page
+
+            //Returns the view with the paginated list format
             return View(await PaginatedList<Schedule>.CreateAsync(schedules.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -204,14 +211,18 @@ namespace PeScheduleDB.Controllers
         {
             return _context.Schedule.Any(e => e.ScheduleId == id);
         }
+
+        //This method allows users to sort the schedule by a specific date
         public async Task<IActionResult> SortSchedule(DateTime? Date, string sortOrder, string currentFilter, int? pageNumber)
         {
+            //If the user enters no date and clicks search, redirect to the index page.
             if (Date == null)
             {
                 
                 return RedirectToAction(nameof(Index));
             }
-
+            
+            //Fetching the schedule data for the date selected by the user when searching.
             var schedules = from s in _context.Schedule.Include(s => s.Courses).ThenInclude(s => s.Teachers).Include(s => s.Locations)
                             where s.Date.Date == Date.Value.Date
                             select s;

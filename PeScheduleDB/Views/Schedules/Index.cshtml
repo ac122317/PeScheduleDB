@@ -10,6 +10,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<!--Form for searching schedules by a specific date-->
 <div>
     <form asp-action="SortSchedule" asp-controller="Schedules" method="get">
         <p>
@@ -21,6 +23,7 @@
     </form>
 </div>
 
+<!--Form for searching schedules by a specific course name or location name-->
 <div>
     <form asp-action="Index" method="get">
         <p>
@@ -32,6 +35,7 @@
     </form>
 </div>
 
+<!--Table displaying the schedule data-->
 <table class="table">
     <thead>
         <tr>
@@ -45,12 +49,14 @@
                 Location
             </th>
             <th>
+                <!--Link to sort the schedules by date-->
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date/Time</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+<!--Looping through each record in the table and displaying it in rows-->
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -74,11 +80,14 @@
 }
     </tbody>
 </table>
+
+<!--Deciding whether the previous and next buttons should be active-->
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
+<!--Links for the pagination navigation-->
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex - 1)"
@@ -94,6 +103,7 @@
     Next
 </a>
 
+<!--Displaying current page number and total pages-->
 <div>
     Page @Model.PageIndex of @Model.TotalPages
 </div>

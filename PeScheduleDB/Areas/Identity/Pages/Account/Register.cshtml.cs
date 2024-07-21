@@ -71,6 +71,7 @@ namespace PeScheduleDB.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            //Custom fields of FirstName and LastName, must follow multiple validation rules otherwise error message will display.
             [Required]
             [StringLength(50)]
             [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
@@ -126,6 +127,7 @@ namespace PeScheduleDB.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                //Assigning the custom fields as the first and last name of the user in the AspUsers table (this allows for the feature of saying "Hello, *users name*" that I added.
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
 

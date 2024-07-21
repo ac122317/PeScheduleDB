@@ -24,12 +24,13 @@ namespace PeScheduleDB.Controllers
         // GET: Students
         public async Task<IActionResult> Index(string sortOrder)
         {
-
+                
                 ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 
                 var students = from s in _context.Student select s;
 
-                switch (sortOrder)
+            //Apply sorting based on the sortOrder parameter (in this case sorting by First Name upon clicking the hyperlink)
+            switch (sortOrder)
                 {
                     case "name_desc":
                         students = students.OrderByDescending(s => s.FirstName);
@@ -170,6 +171,7 @@ namespace PeScheduleDB.Controllers
             return _context.Student.Any(e => e.StudentId == id);
         }
 
+        //Method to allow the user to search for students by their First or Last name
         public async Task<IActionResult> SearchStudent(string Name)
         {
             if (Name == null)

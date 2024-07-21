@@ -170,6 +170,7 @@ namespace PeScheduleDB.Controllers
             return _context.Location.Any(e => e.LocationId == id);
         }
 
+        //This method allows for searching by Location Name
         public async Task<IActionResult> SearchLocation(string LocationName)
         {
             if (LocationName == null)

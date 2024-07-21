@@ -188,6 +188,7 @@ namespace PeScheduleDB.Controllers
             return _context.Teacher.Any(e => e.TeacherId == id);
         }
 
+        //Method to allow the user to search for teachers by their TeacherCode
         public async Task<IActionResult> SearchTeacher(string TeacherCode)
         {
             if (TeacherCode == null)
